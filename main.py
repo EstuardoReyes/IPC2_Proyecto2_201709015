@@ -1,4 +1,4 @@
-from tkinter import Tk     
+from tkinter import *  
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import askdirectory
 import xml.etree.ElementTree as ET
@@ -51,7 +51,7 @@ def carga():
             fi = 1
             state = 0
             colu = 1
-            matriz = Matriz(nombre)
+            matriz = Matriz(nombre,fila,columna)
             error = False
             while x < len(imagen):
                 actual = imagen[x]
@@ -60,75 +60,48 @@ def carga():
                         x = x + 1
                     elif ord(actual) == 45 or ord(actual) == 42:
                         state = 1
-############################################################################################################
+      #######################################################################################################
                 elif state == 1:
                     if ord(actual) == 45: # guion
                         x = x + 1
-                        print(str(fi)+" "+str(colu))
-                        matriz.Agregar(fi,colu,' ')                
+                        if fi>int(fila) or colu>int(columna):
+                            print("Error Matriz mayor que establecida")
+                        else:
+                            matriz.Agregar(fi,colu,'-')             
                     elif ord(actual) == 42: # asterisco
                         x = x + 1
-                        print(str(fi)+" "+str(colu))
-                        matriz.Agregar(fi,colu,'▓')
+                        if fi>int(fila) or colu>int(columna):
+                            print("Error Matriz mayor que establecida")
+                        else:
+                            matriz.Agregar(fi,colu,'*')         
                     else:
-                        x = x + 1
                         fi = fi + 1
                         state = 0
                         colu = 0
                     colu = colu + 1
-        #listaImagenes.Agregar(imagen)
-          
-
-
-
-                 
-
+            
+        listaImagenes.Agregar(matriz)
+        print("Se agrego Imagen: "+nombre)
     
-     
-       
+def ventana():
+    raiz = Tk()
+    raiz.title("Principal")
+    raiz.geometry("650x480")
+    raiz.iconbitmap("codificacion.ico")
+    botonCargar = Button(raiz,text="Cargar Archivo",command=carga,height = 3,width=20).place(x=10,y=20)
+    botonOperacion = Button(raiz,text="Operaciones",command=operaciones,height = 3,width=20).place(x=170,y=20)
+    botonOperacion = Button(raiz,text="Reporte",command=operaciones,height = 3,width=20).place(x=330,y=20)
+    botonOperacion = Button(raiz,text="Ayuda",command=operaciones,height = 3,width=20).place(x=490,y=20)
+    aux = listaImagenes.primero
+    if aux != None:
+        texto = aux.Pintando()
+        imagen1 = Label(raiz,text=texto).place(x=20,y=100)
+    raiz.mainloop()
+    
 
-def graphi():
-    if archivo_Seleccionado == False:
-        print("Archivo de datos de entrada no seleccionado previamente")
-    if procesar == False:
-        print("Proceso de archivo de entrada no realizado previamente")
-    else:
-        print('Matrices Almacenadas')
-        aux = listaCircular.get_Primero()
-        head = listaCircular.get_Primero()
-        salir = False
-        salir2 = False
-        listaNodo = []
-        i=1
-        while salir2 == False:
-            while salir == False:
-                print(str(i)+". "+aux.getDato().getNombre())
-                i = i+1
-                listaNodo.append(aux) 
-                if (aux.siguiente != head):
-                    aux = aux.siguiente
-                else:
-                    salir = True
-            a = input("Seleccione 1 matriz: ")
-            if int(a)<=i-1 and int(a)>=1:
-                nodoUsar = listaNodo[int(a)-1]
-                break
-                #salir2 = True
-            else:
-                print("Seleccione una matriz entre las opciones")
-        nom = nodoUsar.getDato().getNombre()
-        g = Digraph('unix', filename='Reporte',node_attr={'color': 'lightblue2', 'style': 'filled'})
-        g.edge('Matrices', nom)
-        g.edge(nom, 'n='+nodoUsar.getDato().getFila())
-        g.edge(nom, 'm='+nodoUsar.getDato().getColumna())
-        matrizUsar = nodoUsar.getDato().getEntrada()
-        for i in range(1,len(matrizUsar[0])):
-            listaNumeros = []
-            for j in range(1,len(matrizUsar)):
-                listaNumeros.append(matrizUsar[j][i])
-            g.edge(nom,"["+str(1)+","+str(i)+"] = "+str(listaNumeros[0]))
-            for q in range(1,len(listaNumeros)):
-                g.edge("["+str(q)+","+str(i)+"] = "+str(listaNumeros[q-1]),"["+str(q+1)+","+str(i)+"] = "+str(listaNumeros[q]))
-        g.view()
-                                        
-carga()
+def operaciones():
+    print("hola")
+
+                                      
+ventana()
+ventana()

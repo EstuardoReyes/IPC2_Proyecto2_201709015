@@ -15,9 +15,9 @@ class ListaDoble():
             self.primero = self.ultimo = dato
         else: 
             aux = self.ultimo
-            aux1 = self.ultimo
-            self.ultimo = aux.siguiente = dato
-            self.ultimo.atras = aux1
+            self.ultimo = dato
+            dato.atras = aux
+            aux.siguiente = dato
 
     def Buscar(self,identificador):
         aux = self.primero
@@ -25,33 +25,31 @@ class ListaDoble():
             if identificador == aux.identificador:
                 return aux
         else:
-            while aux != self.ultimo:
+            while aux != None:
                 if identificador == aux.identificador:
                     return aux
                 aux = aux.siguiente
     
-               
-    def ExisteNodo(self,identificador):
+    def Imprimir(self):
+        aux = self.primero
+        while(aux != None):
+            print(aux.identificador)
+            aux = aux.siguiente
+
+    def ExisteNodo(self,identificador, tipo):
         aux = self.primero
         if aux == None :
             return False
         else:  
             if self.primero == self.ultimo:
-                print(identificador)
-                print(aux.identificador)
                 if identificador == aux.identificador:
                     return True
             else:
-                while aux != self.ultimo:
+                while aux != None:
                     if identificador == aux.identificador:
                         return True
                     aux = aux.siguiente
             return False
-
-
-
-
-
 
     def get_Primero(self):
         return self.primero
