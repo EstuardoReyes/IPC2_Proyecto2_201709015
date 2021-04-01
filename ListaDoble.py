@@ -26,7 +26,18 @@ class ListaDoble():
                 return aux
         else:
             while aux != None:
-                if identificador == aux.identificador:
+                if (identificador) == (aux.identificador):
+                    return aux
+                aux = aux.siguiente
+
+    def BuscarMatriz(self,nombre):
+        aux = self.primero
+        if self.primero == self.ultimo:
+            if nombre== aux.nombre:
+                return aux
+        else:
+            while aux != None:
+                if nombre == aux.nombre:
                     return aux
                 aux = aux.siguiente
     

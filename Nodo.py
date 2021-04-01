@@ -4,5 +4,7 @@ class Nodo():
         self.fila = fila
         self.columna = columna
         self.nombre = nombre
+        self.f = f
+        self.c = c
     
     

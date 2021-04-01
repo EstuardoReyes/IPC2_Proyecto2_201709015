@@ -15,27 +15,17 @@ class Matriz():
 
 
     def Search(self,fila,columna):
-        print("buscar "+str(fila)+ "   "+str(columna))
         fil = self.primero.fila.Buscar(fila).Nodo
         col = self.primero.columna.Buscar(columna).Nodo
-        encontrado = False
-        while True:
-            while True:
+        while col != None:
+            while fil != None:
                 if fil == col:
                     return fil
-                    encontrado = True
-                    break
-                elif fil.siguiente == None:
-                    break
                 else:
                     fil = fil.siguiente
-            if col.abajo == None:
-                return False
-                break
+            fil = self.primero.fila.Buscar(fila).Nodo
             col = col.abajo
-            if encontrado:
-                break
-        
+                
     def Agregar(self,fila,columna,valor):
         nodoMatriz = NodoMatriz(valor,fila,columna) 
         if self.primero.fila.ExisteNodo(fila,"fila") == False and self.primero.columna.ExisteNodo(columna,"Columna") == False: #si existe e
