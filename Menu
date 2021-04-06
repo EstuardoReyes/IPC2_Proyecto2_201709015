@@ -1,0 +1,5 @@
+digraph unix {
+	node [color=lightblue2 style=filled]
+	"Lista de Imagenes" -> "nombre Matriz_1 fila 10 columna 10"
+	"nombre Matriz_1 fila 10 columna 10" -> "nombre Matriz_2 fila 8 columna 8"
+}

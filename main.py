@@ -3,6 +3,7 @@ from tkinter import ttk
 import copy
 import webbrowser
 import time
+import subprocess
 from tkinter.colorchooser import askcolor
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import askdirectory
@@ -190,27 +191,15 @@ def reporte():
     f.close()
     webbrowser.open_new_tab('Reporte.html')
 
-def prettify(elem):
-    """Return a pretty-printed XML string for the Element.
-    """
-    rough_string = ElementTree.tostring(elem, 'utf-8')
-    reparsed = minidom.parseString(rough_string)
-    return reparsed.toprettyxml(indent="  ")
-
-def cls():
-    r=0
-    while r<10:
-        print("")
-        r=r+1 
 
 def carga():
     root = Tk()
     root.withdraw()
     root.wm_attributes("-topmost", 1)
-    #archivo = askopenfilename(filetypes =(("Archivo TXT", "*.txt"),("Todos Los Archivos","*.*")),title = "Busque su archivo.")
+    archivo = askopenfilename(filetypes =(("Archivo TXT", "*.txt"),("Todos Los Archivos","*.*")),title = "Busque su archivo.")
     root.update()
     root.destroy()
-    xmldoc = xml.dom.minidom.parse("D:\Galeria\Escritorio\entrada1.txt")
+    xmldoc = xml.dom.minidom.parse(archivo)
     for n in xmldoc.getElementsByTagName("matriz"):
         for name in n.getElementsByTagName("nombre"):
             nombre = name.firstChild.data
@@ -1366,6 +1355,9 @@ def verImagen(combo):
        # limite = Label(windows,text="|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n",font=("Lucida Console",20)).place(x=345,y=20)
         #limite1 = Label(windows,text="-------------------------------------------------------------------",font=("Lucida Console",20)).place(x=0,y=30)
 
+def documento():
+    path = 'ensayo.pdf'
+    subprocess.Popen([path], shell=True)
 def ayuda():
     ayuda = Tk()
     ayuda.title("Ayuda")
@@ -1395,8 +1387,16 @@ def datos():
     posicion = str(ancho_ventana) + "x" + str(alto_ventana) + "+" + str(x_ventana) + "+" + str(y_ventana)
     dato.geometry(posicion)
     
-def documento():
-    print("proceso")
+def graphi():
+    g = Digraph('unix', filename='Menu',node_attr={'color': 'lightblue2', 'style': 'filled'})
+    aux = listaImagenes.primero
+    texto = "nombre "+aux.nombre+" fila "+aux.fila+" columna "+aux.columna
+    g.edge('Lista de Imagenes',texto)
+ 
+    while aux.siguiente != None:
+        g.edge("nombre "+aux.nombre+" fila "+aux.fila+" columna "+aux.columna,"nombre "+aux.siguiente.nombre+" fila "+aux.siguiente.fila+" columna "+aux.siguiente.columna)
+        aux = aux.siguiente
+    g.view()
 
 raiz = Tk()
 raiz.title("Principal")
@@ -1417,4 +1417,6 @@ botonReporte = Button(raiz,text="Reporte",command=reporte,bg = "#2D9AB7",fg = "#
 botonReporte.place(x=420,y=20)
 botonAyuda = Button(raiz,text="Ayuda",command=ayuda,bg = "#2D9AB7",fg = "#FFFFFF",font=("Lucida Console",tamaño))
 botonAyuda.place(x=550,y=20)
+botonA = Button(raiz,text=" ",command=graphi,bg = "#2D9AB7",fg = "#FFFFFF",font=("Lucida Console",5))
+botonA.place(x=0,y=0)
 raiz.mainloop()
