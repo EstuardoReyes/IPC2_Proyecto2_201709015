@@ -1388,7 +1388,7 @@ def datos():
     dato.geometry(posicion)
     
 def graphi():
-    g = Digraph('unix', filename='Menu',node_attr={'color': 'lightblue2', 'style': 'filled'})
+    g = Digraph('unix', filename='Imagenes Cargadas en sistema',node_attr={'color': 'lightblue2', 'style': 'filled'})
     aux = listaImagenes.primero
     texto = "nombre "+aux.nombre+" fila "+aux.fila+" columna "+aux.columna
     g.edge('Lista de Imagenes',texto)
