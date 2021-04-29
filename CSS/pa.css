@@ -65,7 +65,7 @@
                             .banner {
                                 background-color: #2D9AB7;
                                 background-image: url(../images/parallax.png);
-                                +height:20px;
+                                +height:362px;
                                 background-attachment: fixed;
                                 background-size: cover;
                                 background-repeat: no-repeat;

@@ -196,13 +196,16 @@ def carga():
     root = Tk()
     root.withdraw()
     root.wm_attributes("-topmost", 1)
-    archivo = askopenfilename(filetypes =(("Archivo TXT", "*.txt"),("Todos Los Archivos","*.*")),title = "Busque su archivo.")
+    archivo = askopenfilename(filetypes =(("Archivo TXT", "*.xml"),("Todos Los Archivos","*.*")),title = "Busque su archivo.")
     root.update()
     root.destroy()
     xmldoc = xml.dom.minidom.parse(archivo)
     for n in xmldoc.getElementsByTagName("matriz"):
+
         for name in n.getElementsByTagName("nombre"):
+            
             nombre = name.firstChild.data
+            print(nombre)
             for fi in n.getElementsByTagName("filas"):
                 fila = fi.firstChild.data
             for co in n.getElementsByTagName("columnas"):
@@ -219,10 +222,13 @@ def carga():
             while x < len(imagen):
                 actual = imagen[x]
                 if state == 0:
-                    if ord(actual) == 10 or ord(actual) == 9:
+                    if ord(actual) == 10 :
+
                         x = x + 1
                     elif ord(actual) == 45 or ord(actual) == 42:
                         state = 1
+                    else:
+                        x = x + 1
       #######################################################################################################
                 elif state == 1:
                     if ord(actual) == 45: # guion
